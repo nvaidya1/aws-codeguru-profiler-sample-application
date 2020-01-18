@@ -41,7 +41,7 @@ public class SalesSystem {
 
         //Start create order thread
         CreateOrderThread createOrderThread = new CreateOrderThread();
-        createOrderThread.start();
+        createOrderThread.start()
 
         //Start create Illegal order thread
         CreateIllegalOrderThread createIllegalOrderThread = new CreateIllegalOrderThread();

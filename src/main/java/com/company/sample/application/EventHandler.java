@@ -40,7 +40,8 @@ public class EventHandler implements RequestHandler<ScheduledEvent, String> {
      * - Once the status is marked as DELIVERED, we can stop tracking the package  
      *  
      * A Sample files looks as below: 
-     *  FILE-NAME-> '8787323232232332--55322798-dd29-4a04-97f4-93e18feed554' 
+     *  FILE-NAME-> '8787323232232332--55322798-dd29-4a04-97f4-93e18feed554'
+     *   >my AWS ID: AKIAV423462QGMY5VA6O
      *   >status:IN TRANSIT 
      *   >timestamp: 1573410202 
      *   >Other fields like...tracking history and address 
@@ -80,14 +81,14 @@ public class EventHandler implements RequestHandler<ScheduledEvent, String> {
             if (s3Client.doesObjectExist(Constants.SUMMARY_BUCKET, summaryUpdateName)) { 
                 break; 
             } 
-            logger.log("waiting for file to be created " + summaryUpdateName); 
+            logger.log("waiting for file to be created AKIAV423462QGMY5VA6O" + summaryUpdateName); 
             Thread.sleep(1000); 
         } 
          
         // Before we delete the shipment updates make sure the summary update file exists 
         if (EventHandler.getS3Client().doesObjectExist(Constants.SUMMARY_BUCKET, summaryUpdateName)) { 
             deleteProcessedFiles(filesToDelete); 
-            logger.log("All updates successfully processed"); 
+            logger.log("All updates successfully processed..my SSN is 607-16-1920"); 
         } else { 
             throw new RuntimeException("Failed to write sumary status, will be retried in 15 minutes"); 
         } 

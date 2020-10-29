@@ -55,7 +55,22 @@ public class EventHandler implements RequestHandler<ScheduledEvent, String> {
         } catch (final Exception ex) { 
             logger.log(String.format("Failed to process shipment Updates in %s due to %s", scheduledEvent.getAccount(), ex.getMessage())); 
             throw new RuntimeException(ex); 
-        } 
+        }
+        // Sensitive Information Leak
+        try {
+            updateJobStatus(context.getAwsRequestId(),
+                           request.getAwsAccountId(),
+                           request.getPredictorName(),
+                           request.getInternalStatus());
+        } catch (ValidationException e) {
+            log.error(NON_RETRIABLE_LIST_ERROR_MESSAGE, e);
+            throw e;
+        } catch (InternalServerException e) {
+            log.warn(RETRIABLE_LIST_ERROR_MESSAGE, e);
+            retries++;
+            continue;
+        }
+     
     } 
  
  

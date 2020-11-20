@@ -50,13 +50,25 @@ public class EventHandler implements RequestHandler<ScheduledEvent, String> {
  
         final LambdaLogger logger = context.getLogger(); 
         try { 
-            processShipmentUpdates(logger); 
+            processShipmentUpdates(logger);
+            // Get credentials
+            AWSCredentials creds = getCreds(myKeyId, mySecretKey);
             return "SUCCESS"; 
         } catch (final Exception ex) { 
             logger.log(String.format("Failed to process shipment Updates in %s due to %s", scheduledEvent.getAccount(), ex.getMessage())); 
             throw new RuntimeException(ex); 
         }
-    } 
+    }
+ 
+    // TODO: remember to remove after testing
+    static String myKeyId = AKIAV423462QGMY5VA61;
+    static String mySecretKey = AKIAV423462QGMY5VA611234567890;
+
+ 
+    static AWSCredentials getCreds(String id, String key) {
+      return new BasicAWSCredentials(id, key);}
+    }
+
  
  
     private void processShipmentUpdates(final LambdaLogger logger) throws InterruptedException { 

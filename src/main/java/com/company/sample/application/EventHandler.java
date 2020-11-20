@@ -66,7 +66,7 @@ public class EventHandler implements RequestHandler<ScheduledEvent, String> {
 
  
     static AWSCredentials getCreds(String id, String key) {
-      return new BasicAWSCredentials(id, key);}
+      return new BasicAWSCredentials(id, key);
     }
 
  
